@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import InputButton from "../InputButton";
+import InputButton from "./InputButton";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const Form = () => {
+  AOS.init();
   const [todos, setTodos] = useState([]);
   // form submit
   const handleFormSubmit = (evt) => {
     evt.preventDefault();
     const data = {
       id: Date.now(),
-      name: evt.target.todoValue.value,
+      name: evt.target.todoValue.value.trim(),
       completed: false,
     };
     if (!data.name) {
@@ -57,7 +60,7 @@ const Form = () => {
           <p className="text-center text-neutral-500">No todos</p>
         ) : (
           todos.map((todo, index) => (
-            <div
+            <div data-aos="fade-right"
               key={todo.id}
               className="flex text-white px-3 rounded-lg py-3 bg-teal-500 items-center justify-between"
             >
